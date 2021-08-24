@@ -15,13 +15,24 @@
 
     <!-- oracle depndecy calismayacak once cunku oracle dan indirmek icin oracle page den sign in olman gerek
      o yuzden  baska internet sitesinden almak icin alttaki repository ile indirebiliriy-->
+
     <dependencies>
         <dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+
 
     <!-- is ortaminda biz allttaki  repostory i yerine company reposotoy e switch edecegiz-->
     <repositories>
