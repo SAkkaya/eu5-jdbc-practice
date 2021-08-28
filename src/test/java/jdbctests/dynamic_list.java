@@ -29,7 +29,7 @@ public class dynamic_list {
         //get the resultset object metadata
         ResultSetMetaData rsMetadata = resultSet.getMetaData();
 
-        //list for keeping all rows a map
+        //list for keeping all rows a map, ( Key=> String but Value => Object)
         List<Map<String,Object>> queryData = new ArrayList<>();
 
         //number of columns

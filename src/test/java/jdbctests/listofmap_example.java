@@ -65,6 +65,7 @@ public class listofmap_example {
         //create connection
         Connection connection = DriverManager.getConnection(dbUrl,dbUsername,dbPassword);
         //create statement object
+                                                                               // statement can go up and down
         Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         //run query and get the result in resultset object
         ResultSet resultSet = statement.executeQuery("select first_name,last_name,salary,job_id from employees\n" +

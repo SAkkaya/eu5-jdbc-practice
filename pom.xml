@@ -14,7 +14,7 @@
     </properties>
 
     <!-- oracle depndecy calismayacak once cunku oracle dan indirmek icin oracle page den sign in olman gerek
-     o yuzden  baska internet sitesinden almak icin alttaki repository ile indirebiliriy-->
+     o yuzden  baska internet sitesinden almak icin alttaki repository ile indirebiliriz-->
 
     <dependencies>
         <dependency>
@@ -34,7 +34,7 @@
 
 
 
-    <!-- is ortaminda biz allttaki  repostory i yerine company reposotoy e switch edecegiz-->
+    <!-- is ortaminda biz allttaki  repostory i yerine company repositoy e switch edecegiz-->
     <repositories>
         <repository>
             <id>oracle</id>
