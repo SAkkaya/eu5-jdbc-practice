@@ -17,6 +17,13 @@
      o yuzden  baska internet sitesinden almak icin alttaki repository ile indirebiliriz-->
 
     <dependencies>
+        <!-- put the rest assure dependency in first order not to have any conflict -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>4.3.2</version>
+        </dependency>
+
         <dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
