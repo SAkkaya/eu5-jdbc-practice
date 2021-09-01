@@ -1,10 +1,15 @@
 package apitests;
 
+import com.oracle.tools.packager.mac.MacAppBundler;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 //import static org.testng.Assert.assertEquals;
@@ -59,7 +64,7 @@ public class SpartanTestWithParameters {
 
         Response response = given().accept(ContentType.JSON)
                 .and().pathParam("id", 500)
-                .when().get("api/spartanns/{id}");
+                .when().get("api/spartans/{id}");
 
         assertEquals(response.statusCode(),404);
         assertEquals(response.contentType(),"application/json");
@@ -85,12 +90,54 @@ public class SpartanTestWithParameters {
     @Test
     public void positiveTestWithQueryParam(){
 
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("gender", "Female")
+                .and().queryParam("nameContains", "e")
+                .when().get("/api/spartans/search");
+
+//     queryParam=> ile Rest assure add at the end of the url=> .when().get("/api/spartans/search?gender=Female&nameContains=e");
+
+        //verify status code
+        assertEquals(response.statusCode(),200);
+        //verify content-type
+        assertEquals(response.contentType(),"application/json");
+        //verify Female in the response
+        assertTrue(response.body().asString().contains("Female"));
+        //verify Janette in the response
+        assertTrue(response.body().asString().contains("Janette"));
+
+
     }
 
     @Test
     public void positiveTestWithQueryParamWithMaps(){
 
+        //create a map and add query parameters
+        Map<String,Object> queryMap = new HashMap<>();
+        queryMap.put("gender","Female");
+        queryMap.put("nameContains","e");
+
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParams(queryMap)
+                .when().get("/api/spartans/search");
+
+        //response verification
+        //verify status code
+        assertEquals(response.statusCode(),200);
+        //verify content-type
+        assertEquals(response.contentType(),"application/json");
+        //verify Female in the response
+        assertTrue(response.body().asString().contains("Female"));
+        //verify Janette in the response
+        assertTrue(response.body().asString().contains("Janette"));
+
     }
+
+
+
+
+
+
 
 
 }
