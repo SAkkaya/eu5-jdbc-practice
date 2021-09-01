@@ -70,6 +70,48 @@ public class SpartanTestWithPath {
 
     }
 
+    @Test
+    public void getAllSpartanWithPAth(){
+
+        Response response = given().accept(ContentType.JSON)
+                .when().get("api/spartans");
+
+        assertEquals(response.statusCode(), 200);
+        //verify content type
+        assertEquals(response.contentType(), "application/json");
+//  response.contentType() methodu olmasa idi ==> asagidaki header ve getHeader methodlari ile de alabilirdik
+//        assertEquals(response.header("Content-Type"), "application/json");
+//        assertEquals(response.getHeader("Content-Type"), "application/json");
+
+            //array icinde 0 index #'dan baslayan degerler oldugu icin index e gore id alabiliriz
+        System.out.println(response.path("id[1]").toString());
+
+        int firstId = response.path("id[0]");
+        System.out.println("firstId = " + firstId);
+
+
+        String firstName = response.path("name[0]");
+        System.out.println("firstName = " + firstName);
+
+        //"name[-1]"  this syntax called ==> gpath     -1     son index i veriyor
+        String lastFirstName = response.path("name[-1]");
+        System.out.println("lastFirstName = " + lastFirstName);
+
+        int lastId = response.path("id[-1]");
+        System.out.println("lastId = " + lastId);
+
+        //print all names of spartans
+        List<String> names = response.path("name");
+        System.out.println("names = " + names);
+
+        List<Object> phones = response.path("phone");
+        for (Object phone : phones) {
+            System.out.println(phone);
+        }
+
+
+    }
+
 
 
 
