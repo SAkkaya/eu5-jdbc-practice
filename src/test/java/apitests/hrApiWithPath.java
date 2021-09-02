@@ -6,6 +6,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigurationReader;
 
+import javax.lang.model.SourceVersion;
+import java.util.List;
+
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.*;
 import static org.testng.Assert.*;
@@ -35,6 +38,43 @@ public class hrApiWithPath {
         String secondCountryName = response.path("items.country_name[1]");
         System.out.println("secondCountryName = " + secondCountryName);
 
+        String link2 =response.path("items.links[2].href[0]"); //href[]  inside the array so you have to specify index #
+        System.out.println("link2 = " + link2);
+
+        //get all countries
+        List<String> countryNames = response.path("items.country_name"); //index no yazmazsam it is gonna return ArrayList
+        System.out.println("countryNames = " + countryNames);
+
+        //assert that all regions'ids equal to 2
+
+        List<Integer> regionIds = response.path("items.region_id");
+        for (int  regionId : regionIds) {
+            System.out.println(regionId);
+            assertEquals(regionId,2);
+        }
+
+
+    }
+
+
+    @Test
+    public void test2(){
+
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\": \"IT_PROG\"}")
+                .when().get("/employees");
+
+        assertEquals(response.statusCode(),200);
+        assertEquals(response.contentType(), "application/json");
+        assertTrue(response.body().asString().contains("IT_PROG"));
+
+       //make sure we have only IT_PROG as a job_id
+
+        List<String> jobIds = response.path("items.job_id");
+        for (String jobId : jobIds) {
+            System.out.println(jobId);
+            assertEquals(jobId,"IT_PROG");
+        }
 
     }
 
