@@ -64,6 +64,10 @@ public class CBTrainingWithJsonPath {
         System.out.println("zipCode2 = " + zipCode2);
         assertEquals(zipCode2, "30284");
 
+        // response.path de; String in icine Integer i atayamayiz, hata verir!!    //java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+//        String zipCode3= response.path("students.company[0].address.zipCode");
+//        System.out.println("zipCode3 = " + zipCode3);
+
         //Jso path hata vermez String in icine array listi  !!!! ama asagidaki ornekte oldugu gibi;
         String firstName2 = jsonPath.getString("students.firstName");
         System.out.println("firstName2 = " + firstName2);
@@ -74,9 +78,7 @@ public class CBTrainingWithJsonPath {
 //        System.out.println("firstName3 = " + firstName3);
 
 
-        // response.path de; String in icine Integer i atayamayiz, hata verir!!    //java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
-//        String zipCode3= response.path("students.company[0].address.zipCode");
-//        System.out.println("zipCode3 = " + zipCode3);
+
 
 
 
