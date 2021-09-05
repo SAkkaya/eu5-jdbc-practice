@@ -115,10 +115,10 @@ public class HW_Assignment1 {
                 .and().queryParam("q", "{\"department_id\": 80}")
                 .when().get("/employees");
 
-
-        JsonPath jsonPath= response.jsonPath();
         assertEquals(response.statusCode(), 200);
         assertEquals(response.contentType(), "application/json" );
+
+        JsonPath jsonPath= response.jsonPath();
 
         List<String> listJob_IDs = jsonPath.getList("items.job_id");
 
