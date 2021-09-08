@@ -6,8 +6,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import utilities.ConfigurationReader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 
 public class PostRequestDemo {
@@ -78,6 +82,127 @@ public class PostRequestDemo {
         assertEquals(name, "MikeEU");
         assertEquals(gender, "Male");
         assertEquals(phone, 8877445596L);
+
+    }
+
+    @Test
+    public void PostNewSpartan2(){
+        //create a map to keep request json body information
+        Map<String,Object> requestMap = new HashMap<>();
+        //adding value that we want to post
+        requestMap.put("name","MikeEU2");
+        requestMap.put("gender","Male");
+        requestMap.put("phone",8877445596l);
+
+        given().log().all()
+                .accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body(requestMap)  // body() ==> convert Java to JSON
+        .when()
+                .post("/api/spartans")
+        .then().log().all()
+                .statusCode(201)
+                .and()
+                .contentType("application/json")
+                .and()
+                .body("success", is("A Spartan is Born!"),
+                        "data.name",equalTo("MikeEU2"),
+                        "data.gender",equalTo("Male"),
+                        "data.phone",equalTo(8877445596l));
+    }
+
+
+
+    //Optional homeworks
+    //Homework-1
+    //1-Create csv file from mackaroo website, which includes name,gender,phone
+    //2-Download excel file
+    //3- using testng data provider and apache poi create data driven posting from spartan
+
+
+
+    //Homework-2
+    //-Create one mackaroo api for name,gender,phone
+    //send get request to retrieve random info from that api
+    //use those info to send post request to spartan
+
+    @Test
+    public void PostNewSpartan3(){
+        //Optional homeworks
+        //Homework-1
+        //1-Create csv file from mackaroo website, which includes name,gender,phone
+        //2-Download excel file
+        //3- using testng data provider and apache poi create data driven posting from spartan
+
+
+
+        //Homework-2
+        //-Create one mackaroo api for name,gender,phone
+        //send get request to retrieve random info from that api
+        //use those info to send post request to spartan
+
+
+        Spartan spartanEU = new Spartan();
+        spartanEU.setName("MikeEU3");
+        spartanEU.setGender("Male");
+        spartanEU.setPhone(8877445596l);
+
+
+        given().log().all()
+                .accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body(spartanEU)
+        .when()
+                .post("/api/spartans")
+        .then().log().all()
+                .statusCode(201)
+                .and()
+                .contentType("application/json")
+                .and()
+                .body("success", is("A Spartan is Born!"),
+                        "data.name",equalTo("MikeEU3"),
+                        "data.gender",equalTo("Male"),
+                        "data.phone",equalTo(8877445596l));
+
+        //after post request, send a get request to generated spartan
+
+
+
+    }
+
+    @Test
+    public void PostNewSpartan4(){
+
+        Spartan spartanEU = new Spartan();
+        spartanEU.setName("MikeEU3");
+        spartanEU.setGender("Male");
+        spartanEU.setPhone(8877445596l);
+
+
+        Response response = given().log().all()
+                .accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body(spartanEU)
+                .when()
+                .post("/api/spartans");
+
+        //END OF POST REQUEST
+
+
+        //get request
+        int idFromPost = response.path("data.id");
+        System.out.println("id = " + idFromPost);
+        //after post request, send a get request to generated spartan
+        given().accept(ContentType.JSON)
+                .pathParam("id",idFromPost)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).log().all();
 
 
 
